@@ -20,8 +20,11 @@ function Menu(){
                     <a class="nav-link" href="sessoes.html">Sessões</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="ingressos.html">Ingressos</a>
+                    <a class="nav-link" href="ingressos.html">Ingressos</a>
                 </li>
+                {/* <li class="nav-item">
+                    <a class="nav-link active" href="ingressos.html">Ingressos</a>
+                </li> */}
                 <li class="nav-item">
                     <a class="nav-link" href="sessoesDisponiveis.html">Sessões Disponíveis</a>
                 </li>
