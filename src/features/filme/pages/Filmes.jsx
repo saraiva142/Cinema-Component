@@ -1,16 +1,17 @@
 import CardResume from "../../../components/cards/cardResume";
 import Menu from "../../../components/menus/menu";
+import FormFilms from "../components/formFilm";
 
 export default function Filmes() {
     return (
         <>
         <Menu />
         
-        <div class="container">
+        <div className="container">
             <br></br>
             <h3>Filmes</h3>
             <br></br>
-            <div class="row">    
+            <div className="row">    
                 <CardResume />
                 <CardResume />
                 <CardResume />
@@ -19,16 +20,18 @@ export default function Filmes() {
 
         <hr></hr>
 
-        <figure class="text-center">
-            <blockquote class="blockquote">
+        <figure className="text-center">
+            <blockquote className="blockquote">
                 <p>
-                <h1>Cadastrar Filmes</h1>
+                    <h1>Cadastrar Filmes</h1>
                 </p>
             </blockquote>
-            <figcaption class="blockquote-footer">
+            <figcaption className="blockquote-footer">
                 Cadastre um filme para que ele apareça na lista de filmes disponíveis.
             </figcaption>
         </figure>
+
+        <FormFilms />
         </>
     );
 }
