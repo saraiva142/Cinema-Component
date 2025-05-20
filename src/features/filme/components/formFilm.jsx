@@ -1,5 +1,6 @@
 import InputForm from "../../../components/inputs/input";
 import InputSelect from "../../../components/inputs/inputSelect";
+import ModalFilme from "./modalFilme";
 
 export default function FormFilms() {
     return (
@@ -66,27 +67,13 @@ export default function FormFilms() {
                         type="date"
                     />
                 </div>
-                <div className="col-12">
-            
-                    <button type="button" id="btn-salvar" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                    Salvar
-                    </button>
-
-                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Filme Cadastrado ✨</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div className="modal-body">
-                            O filme foi cadastrado com sucesso! Agora ele já está disponível para compra de ingressos.
-                        </div>
-                        
-                        </div>
-                    </div>
-                    </div>
-                </div>
+                <ModalFilme
+                id="exampleModal"
+                idModal="exampleModalLabel"
+                labelBotton='Salvar'
+                labelModal='Filme Cadastrado ✨'
+                textoModal='O filme foi cadastrado com sucesso! Agora ele já está disponível para compra de ingressos.'
+                />
             </form>
         </div>
         </>

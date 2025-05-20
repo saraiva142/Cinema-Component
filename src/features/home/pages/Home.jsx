@@ -5,7 +5,11 @@ export default function Home() {
     return(
         <>
         <Menu />
-        <Carrosel />
+        <Carrosel 
+            src1="/cartazes/walter-cover.png"
+            src2="/cartazes/rago.png"
+            src3="/cartazes/duna.png"
+        />
         <div className="container mt-5">
             <h1 className="text-center" style={{fontWeight: "bolder"}}>Bem-vindo ao CineSaraiva🎬</h1>
             <p className="text-center">Aqui você pode encontrar os melhores filmes e sessões disponíveis.</p>
