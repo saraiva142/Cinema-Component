@@ -5,6 +5,7 @@ import Menu from './components/menus/menu'
 import Home from './features/home/pages/Home'
 import Filmes from './features/filme/pages/Filmes'
 import Salas from './features/salas/pages/salas'
+import Sessoes from './features/sessoes/pages/sessoes'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -13,7 +14,8 @@ function App() {
     <>
       {/* <Home /> */}
       {/* <Filmes /> */}
-      <Salas />
+      {/* <Salas /> */}
+      <Sessoes /> 
     </>
   )
 }

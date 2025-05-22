@@ -1,9 +1,11 @@
+import Menu from '../../../components/menus/menu';
 import Carrosel from '../../home/components/carrosel/carrosel'
 import SalaForm from '../components/formSala';
 
 export default function Salas(){
     return(
         <>
+        <Menu />
         <Carrosel 
             src1='/cartazes/killbill.png'
             src2='/cartazes/budapest.jpg'

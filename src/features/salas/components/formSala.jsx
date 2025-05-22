@@ -38,7 +38,14 @@ export default function SalaForm(){
                 </div>
                 <div class="col-12">
                 
-                    <ModalSala />
+                    <ModalSala 
+                    idBotao='btn-salvar-sala'
+                    idModal='exampleModal'
+                    labelModal="Sala Cadastrada ✨"
+                    labelbotao='Salvar'
+                    textoModal="A sala foi cadastrada com sucesso! 🎉"
+
+                    />
                 </div>
             </form>
             </div>
