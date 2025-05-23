@@ -5,7 +5,7 @@ import SalaForm from '../components/formSala';
 export default function Salas(){
     return(
         <>
-        <Menu />
+        {/* <Menu /> */}
         <Carrosel 
             src1='/cartazes/killbill.png'
             src2='/cartazes/budapest.jpg'

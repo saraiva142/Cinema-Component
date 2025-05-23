@@ -4,7 +4,7 @@ import Carrosel from "../components/carrosel/carrosel";
 export default function Home() {
     return(
         <>
-        <Menu />
+        {/* <Menu /> */}
         <Carrosel 
             src1="/cartazes/walter-cover.png"
             src2="/cartazes/rago.png"

@@ -5,7 +5,7 @@ import FormFilms from "../components/formFilm";
 export default function Filmes() {
     return (
         <>
-        <Menu />
+        {/* <Menu /> */}
         
         <div className="container">
             <br></br>

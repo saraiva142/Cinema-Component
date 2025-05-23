@@ -1,3 +1,4 @@
+import Card from "../../../components/cards/card";
 import Menu from "../../../components/menus/menu";
 import Carrosel from "../../home/components/carrosel/carrosel";
 import FormSessao from "../components/formSessao";
@@ -5,7 +6,7 @@ import FormSessao from "../components/formSessao";
 export default function Sessoes(){
     return (
         <>
-        <Menu />
+        {/* <Menu /> */}
 
         <Carrosel
         src1="/cartazes/clublut.jpg"
@@ -25,6 +26,7 @@ export default function Sessoes(){
         </figure>
         
         <FormSessao />
+
         </>
     );
 }
