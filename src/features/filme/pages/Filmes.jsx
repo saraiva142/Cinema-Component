@@ -1,6 +1,7 @@
 import CardResume from "../../../components/cards/cardResume";
 import Menu from "../../../components/menus/menu";
 import FormFilms from "../components/formFilm";
+import ModalTableFilm from "../components/modalTableFilm";
 
 export default function Filmes() {
     return (
@@ -53,6 +54,23 @@ export default function Filmes() {
         </figure>
 
         <FormFilms />
+
+        <hr></hr>
+
+        <figure class="text-center">
+      
+            <h1 style={{padding: "12px"}}>Filmes CineSaraiva</h1>
+        
+            <div className="text-center">
+                <ModalTableFilm
+                    labelBotton="Ver Lista de Filmes"
+                    labelModal="Filmes Cadastrados 🎥"
+                    textoModal="Aqui está a tabela dos filmes cadastrados no sistema."
+                />
+            </div>
+        
+        </figure>
+
         </>
     );
 }

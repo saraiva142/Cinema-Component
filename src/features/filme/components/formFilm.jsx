@@ -3,6 +3,40 @@ import InputSelect from "../../../components/inputs/inputSelect";
 import ModalFilme from "./modalFilme";
 
 export default function FormFilms() {
+
+    const handleSave = () => {
+        const titulo = document.getElementById("inputTitulo").value;
+        const genero = document.getElementById("inputGenero").value;
+        const descricao = document.getElementById("inputDescricao").value;
+        const classificacao = document.getElementById("inputClassificacaoIndicativa").value;
+        const duracao = document.getElementById("inputDuracao").value;
+        const estreia = document.getElementById("inputDataEstreia").value;
+
+        const filmes = JSON.parse(localStorage.getItem("filmes")) || [];
+
+        const novoFilme = {
+            id: filmes.length + 1,
+            titulo,
+            genero,
+            descricao,
+            classificacao,
+            duracao,
+            estreia
+        };
+
+        filmes.push(novoFilme);
+
+        localStorage.setItem("filmes", JSON.stringify(filmes));
+
+        // Limpar os campos após salvar
+        document.getElementById("inputTitulo").value = "";
+        document.getElementById("inputGenero").value = "";
+        document.getElementById("inputDescricao").value = "";
+        document.getElementById("inputClassificacaoIndicativa").value = "";
+        document.getElementById("inputDuracao").value = "";
+        document.getElementById("inputDataEstreia").value = "";
+    };
+
     return (
         <>
         <div className="cadastro_film" style={{display: "flex",  justifyContent: "center", alignItems: "center", padding: "5%"}}>
@@ -31,7 +65,7 @@ export default function FormFilms() {
                 </div>
                 <div className="col-12">
                     <InputForm
-                        id={"inputDiretor"}
+                        id={"inputDescricao"}
                         label={"Descrição"}
                         placeholder={"Sinópse do filme"}
                     />
@@ -73,6 +107,7 @@ export default function FormFilms() {
                 labelBotton='Salvar'
                 labelModal='Filme Cadastrado ✨'
                 textoModal='O filme foi cadastrado com sucesso! Agora ele já está disponível para compra de ingressos.'
+                onSave={handleSave}
                 />
             </form>
         </div>

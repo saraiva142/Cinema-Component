@@ -3,14 +3,14 @@ export default function ModalFilme({
     idModal='exampleModalLabel',
     labelBotton='Esqueceu, seria salvar',
     labelModal='Esquceu TBM - Filme Cadastrado ✨',
-    textoModal='O filme foi cadastrado com sucesso! Agora ele já está disponível para compra de ingressos.'
-
+    textoModal='O filme foi cadastrado com sucesso! Agora ele já está disponível para compra de ingressos.',
+    onSave = () => {}
 }){
     return(
         <>
         <div className="col-12">
             
-                    <button type="button" id="btn-salvar" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button type="button" id="btn-salvar" className="btn btn-dark" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={onSave}>
                     {labelBotton}
                     </button>
 
