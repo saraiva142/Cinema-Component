@@ -1,6 +1,7 @@
 import Card from "../../../components/cards/card";
 import Menu from "../../../components/menus/menu";
 import FormIngresso from "../components/formIngresso";
+import ModalTableIngresso from "../components/modalTableIngrsso";
 
 export default function Ingressos(){
     return(
@@ -42,6 +43,22 @@ export default function Ingressos(){
         </figure>
 
         <FormIngresso/>
+
+
+        
+        <figure class="text-center">
+                              
+            <h1 style={{padding: "12px"}}>Ingressos CineSaraiva</h1>
+                                
+            <div className="text-center">
+            <ModalTableIngresso
+                labelBotton="Ver Lista de Ingressos"
+                labelModal="Ingressos Comprados 🎟️"
+                textoModal="Aqui está a tabela dos ingressos cadastrados no sistema."
+            />
+            </div>
+                                
+        </figure>
         </>
     );
 }
