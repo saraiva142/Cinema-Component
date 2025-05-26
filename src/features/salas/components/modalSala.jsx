@@ -4,12 +4,13 @@ export default function ModalSala({
     labelModal="Não Esquece -> Sala Cadastrada ✨",
     labelbotao,
     textoModal="A sala foi cadastrada com sucesso! 🎉 Não esquece",
+    onSave = () => {},
 }){
     return(
         <>
         <div className="col-12">
           
-            <button type="button" className="btn btn-dark" id={idBotao} data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button type="button" className="btn btn-dark" id={idBotao} data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={onSave}>
               {labelbotao}
             </button>
 

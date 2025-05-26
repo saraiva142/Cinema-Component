@@ -4,6 +4,31 @@ import ModalFilme from "../../filme/components/modalFilme";
 import ModalSala from "./modalSala";
 
 export default function SalaForm(){
+
+    const handleSave = () => {
+        const salaNome = document.getElementById("inputNomeSala").value;
+        const capacidade = document.getElementById("inputCapacidadeSala").value;
+        const tipo = document.getElementById("inputTipo").value;
+
+        const salas = JSON.parse(localStorage.getItem("salas")) || [];
+
+        const novaSala = {
+            id: salas.length + 1,
+            salaNome,
+            capacidade,
+            tipo,
+        };
+
+        salas.push(novaSala);
+
+        localStorage.setItem("salas", JSON.stringify(salas));
+
+        // Limpar os campos após salvar
+        document.getElementById("inputNomeSala").value = "";
+        document.getElementById("inputCapacidadeSala").value = "";
+        document.getElementById("inputTipo").value = "";
+    };
+
     return(
         <>
         <div class="cadastro_sala" style={{display: "flex", justifyContent: "center", alignItems: "center", padding: "5%"}}>
@@ -44,7 +69,7 @@ export default function SalaForm(){
                     labelModal="Sala Cadastrada ✨"
                     labelbotao='Salvar'
                     textoModal="A sala foi cadastrada com sucesso! 🎉"
-
+                    onSave={handleSave}
                     />
                 </div>
             </form>
