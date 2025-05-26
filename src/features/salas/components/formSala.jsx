@@ -32,7 +32,7 @@ export default function SalaForm(){
     return(
         <>
         <div class="cadastro_sala" style={{display: "flex", justifyContent: "center", alignItems: "center", padding: "5%"}}>
-            <form class="row g-3" style={{width: "46rem"}}>
+            <form class="row g-3" style={{width: "46rem"}} onSubmit={(e) => e.preventDefault()}>
                 <div class="col-md-6">
                     <InputForm
                         id="inputNomeSala"

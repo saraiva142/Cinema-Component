@@ -40,7 +40,7 @@ export default function FormFilms() {
     return (
         <>
         <div className="cadastro_film" style={{display: "flex",  justifyContent: "center", alignItems: "center", padding: "5%"}}>
-            <form className="row g-3" style={{width: "46rem"}}>
+            <form className="row g-3" style={{width: "46rem"}} onSubmit={(e) => e.preventDefault()}>
                 <div className="col-md-6">
                     <InputForm
                         id="inputTitulo"
