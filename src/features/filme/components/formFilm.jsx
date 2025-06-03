@@ -1,16 +1,19 @@
 import InputForm from "../../../components/inputs/input";
 import InputSelect from "../../../components/inputs/inputSelect";
+import api from "../../../service/api";
 import ModalFilme from "./modalFilme";
 
 export default function FormFilms() {
 
-    const handleSave = () => {
+    const handleSave = async () => {
         const titulo = document.getElementById("inputTitulo").value;
         const genero = document.getElementById("inputGenero").value;
         const descricao = document.getElementById("inputDescricao").value;
         const classificacao = document.getElementById("inputClassificacaoIndicativa").value;
         const duracao = document.getElementById("inputDuracao").value;
         const estreia = document.getElementById("inputDataEstreia").value;
+
+        console.log(estreia);
 
         const filmes = JSON.parse(localStorage.getItem("filmes")) || [];
 
@@ -24,9 +27,18 @@ export default function FormFilms() {
             estreia
         };
 
-        filmes.push(novoFilme);
+        const response = await api.post("/filmes", {
+            titulo,
+            genero,
+            descricao,
+            classificacao,
+            duracao,
+            estreia
+        })
 
-        localStorage.setItem("filmes", JSON.stringify(filmes));
+        // filmes.push(novoFilme);
+
+        // localStorage.setItem("filmes", JSON.stringify(filmes));
 
         // Limpar os campos após salvar
         document.getElementById("inputTitulo").value = "";
