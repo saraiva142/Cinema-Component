@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import api from "../../../service/api";
 
 export default function ModalTableSala({
     id = 'modalTableSala',
@@ -10,9 +11,16 @@ export default function ModalTableSala({
 
     const [salas, setSalas] = useState([]);
 
+    async function getSalas() {
+        const response = await api.get("/salas");
+        setSalas(response.data)
+    }
+    console.log("askhsakhdkashd", salas)
+
     useEffect(() => {
-        const salasStorage = JSON.parse(localStorage.getItem("salas")) || [];
-        setSalas(salasStorage);
+        // const salasStorage = JSON.parse(localStorage.getItem("salas")) || [];
+        // setSalas(salasStorage);
+        getSalas();
     }, []);
     
     return (
@@ -23,10 +31,10 @@ export default function ModalTableSala({
                     className="btn btn-dark"
                     data-bs-toggle="modal"
                     data-bs-target={`#${id}`}
-                    onClick={() => {
-                        const salasStorage = JSON.parse(localStorage.getItem("salas")) || [];
-                        setFilmes(salasStorage);
-                    }}
+                    // onClick={() => {
+                    //     //const salasStorage = JSON.parse(localStorage.getItem("salas")) || [];
+                    //     setFilmes(salasStorage);
+                    // }}
                 >
                     {labelBotton}
                 </button>
@@ -69,7 +77,7 @@ export default function ModalTableSala({
                                                 salas.map((sala) => (
                                                     <tr key={sala.id}>
                                                         <td>{sala.id}</td>
-                                                        <td>{sala.salaNome}</td>
+                                                        <td>{sala.nomeSala}</td>
                                                         <td>{sala.capacidade}</td>
                                                         <td>{sala.tipo}</td>
                                                     </tr>

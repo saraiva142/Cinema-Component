@@ -2,11 +2,12 @@ import InputForm from "../../../components/inputs/input";
 import InputSelect from "../../../components/inputs/inputSelect";
 import ModalFilme from "../../filme/components/modalFilme";
 import ModalSala from "./modalSala";
+import api from "../../../service/api";
 
 export default function SalaForm(){
 
-    const handleSave = () => {
-        const salaNome = document.getElementById("inputNomeSala").value;
+    const handleSave = async () => {
+        const nomeSala = document.getElementById("inputNomeSala").value;
         const capacidade = document.getElementById("inputCapacidadeSala").value;
         const tipo = document.getElementById("inputTipo").value;
 
@@ -14,14 +15,20 @@ export default function SalaForm(){
 
         const novaSala = {
             id: salas.length + 1,
-            salaNome,
+            nomeSala,
             capacidade,
             tipo,
         };
 
-        salas.push(novaSala);
+        const response = await api.post("/salas", {
+            nomeSala,
+            capacidade: Number(capacidade),
+            tipo
+        })
 
-        localStorage.setItem("salas", JSON.stringify(salas));
+        //salas.push(novaSala);
+
+        //localStorage.setItem("salas", JSON.stringify(salas));
 
         // Limpar os campos após salvar
         document.getElementById("inputNomeSala").value = "";

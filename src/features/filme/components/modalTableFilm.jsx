@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import api from "../../../service/api";
 
 export default function ModalTableFilm({
     id = 'modalTableFilm',
@@ -10,9 +11,16 @@ export default function ModalTableFilm({
 
     const [filmes, setFilmes] = useState([]);
 
+    async function getFilmes() {
+        const responde = await api.get("/filmes");
+        setFilmes(responde.data);
+    }
+    console.log("Filmes:", filmes);
+
     useEffect(() => {
-        const filmesStorage = JSON.parse(localStorage.getItem("filmes")) || [];
-        setFilmes(filmesStorage);
+        // const filmesStorage = JSON.parse(localStorage.getItem("filmes")) || [];
+        // setFilmes(filmesStorage);
+        getFilmes();
     }, []);
     
     return (
@@ -23,10 +31,10 @@ export default function ModalTableFilm({
                     className="btn btn-dark"
                     data-bs-toggle="modal"
                     data-bs-target={`#${id}`}
-                    onClick={() => {
-                        const filmesStorage = JSON.parse(localStorage.getItem("filmes")) || [];
-                        setFilmes(filmesStorage);
-                    }}
+                    // onClick={() => {
+                    //     const filmesStorage = JSON.parse(localStorage.getItem("filmes")) || [];
+                    //     setFilmes(filmesStorage);
+                    // }}
                 >
                     {labelBotton}
                 </button>
