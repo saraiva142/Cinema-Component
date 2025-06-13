@@ -3,22 +3,41 @@ import InputForm from "../../../components/inputs/input";
 import InputSelect from "../../../components/inputs/inputSelect";
 import ModalFilme from "../../filme/components/modalFilme";
 import ModalSala from "../../salas/components/modalSala";
+import api from "../../../service/api";
 
 export default function FormSessao(){
 
     const [filmes, setFilmes] = useState([]);
     const [salas, setSalas] = useState([]);
 
+    // useEffect(() => {
+    //     const filmesStorage = JSON.parse(localStorage.getItem("filmes")) || [];
+    //     const salasStorage = JSON.parse(localStorage.getItem("salas")) || [];
+    //     setFilmes(filmesStorage);
+    //     setSalas(salasStorage);
+    // }, []);
+
     useEffect(() => {
-        const filmesStorage = JSON.parse(localStorage.getItem("filmes")) || [];
-        const salasStorage = JSON.parse(localStorage.getItem("salas")) || [];
-        setFilmes(filmesStorage);
-        setSalas(salasStorage);
+        async function fetchData() {
+            try {
+                const filmesResponse = await api.get("/filmes");
+                setFilmes(filmesResponse.data);
+
+                const salasResponse = await api.get("/salas");
+                console.log("SALAS:", salasResponse.data); // Debugando essa porra do caralho fdp
+                setSalas(salasResponse.data);
+            } catch (error) {
+                console.error("Erro ao buscar filmes ou salas:", error);
+            }
+        }
+        fetchData();
     }, []);
 
-    const handleSave = () => {
-        const filme = document.getElementById("inputFilme").value;
-        const sala = document.getElementById("inputSala").value;
+    const handleSave = async () => {
+        // const filme = document.getElementById("inputFilme").value;
+        // const nomeSala = document.getElementById("inputSala").value;
+        const filmeId = document.getElementById("inputFilme").value;
+        const salaId = document.getElementById("inputSala").value;
         const dataHora = document.getElementById("inputDataHora").value;
         const valor = document.getElementById("inputValor").value;
         const idioma = document.getElementById("inputIdioma").value;
@@ -26,19 +45,30 @@ export default function FormSessao(){
 
         const sessoes = JSON.parse(localStorage.getItem("sessoes")) || [];
 
-        const novaSessao = {
-            id: sessoes.length + 1,
-            filme,
-            sala,
+        // const novaSessao = {
+        //     id: sessoes.length + 1,
+        //     filme,
+        //     nomeSala,
+        //     dataHora,
+        //     valor,
+        //     idioma,
+        //     formato
+        // };
+
+        const response = await api.post("/sessoes", {
+            // filme,
+            // nomeSala,
+            filmeId: parseInt(filmeId),
+            salaId: parseInt(salaId),
             dataHora,
-            valor,
+            valor: valor.toString(), // <= class-validator espera string
             idioma,
             formato
-        };
+        });
 
-        sessoes.push(novaSessao);
+        // sessoes.push(novaSessao);
 
-        localStorage.setItem("sessoes", JSON.stringify(sessoes));
+        // localStorage.setItem("sessoes", JSON.stringify(sessoes));
 
         // Limpar campos
         document.getElementById("inputFilme").value = "";
@@ -65,7 +95,7 @@ export default function FormSessao(){
                         //     {value: "A Vida Secreta de Walter Mitty", label: "A Vida Secreta de Walter Mitty"},
                         //     {value: "Meu Malvado Favorito", label: "Meu Malvado Favorito"},
                         // ]}
-                        options={filmes.map(f => ({ value: f.titulo, label: f.titulo }))}
+                        options={filmes.map(f => ({ value: f.id, label: f.titulo }))}
                     />
                 </div>
                 <div className="col-md-6">
@@ -79,7 +109,7 @@ export default function FormSessao(){
                         //     {value: "Sala-Spielberg", label: "Sala-Spielberg"},
                         //     {value: "Sala-Tarantino", label: "Sala-Tarantino"},
                         // ]}
-                        options={salas.map(s => ({ value: s.salaNome, label: s.salaNome }))}
+                        options={salas.map(s => ({ value: s.id, label: s.nomeSala }))}
                     />
                 </div>
                 <div className="col-md-6">
@@ -104,7 +134,7 @@ export default function FormSessao(){
                         label="Idioma"
                         options={[
                             {value: "Dublado", label: "Dublado"},
-                            {value: "Legandado", label: "Legendado"},
+                            {value: "Legendado", label: "Legendado"},
                         ]}
                     />
                 </div>

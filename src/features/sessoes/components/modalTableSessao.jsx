@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import api from "../../../service/api";
 
 export default function ModalTableSessao({
     id = 'modalTableSessao',
@@ -9,15 +10,22 @@ export default function ModalTableSessao({
 }) {
     const [sessoes, setSessoes] = useState([]);
 
+    async function getSessoes() {
+        const response = await api.get("/sessoes");
+        setSessoes(response.data);
+    }
+    console.log("Sessoes:", sessoes);
+
     useEffect(() => {
-        const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
-        setSessoes(sessoesStorage);
+        // const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
+        // setSessoes(sessoesStorage);
+        getSessoes();
     }, []);
 
-    const atualizarSessoes = () => {
-        const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
-        setSessoes(sessoesStorage);
-    };
+    // const atualizarSessoes = () => {
+    //     const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
+    //     setSessoes(sessoesStorage);
+    // };
 
     return (
         <>
@@ -27,7 +35,7 @@ export default function ModalTableSessao({
                     className="btn btn-dark"
                     data-bs-toggle="modal"
                     data-bs-target={`#${id}`}
-                    onClick={atualizarSessoes}
+                    //onClick={atualizarSessoes}
                 >
                     {labelBotton}
                 </button>
@@ -73,8 +81,8 @@ export default function ModalTableSessao({
                                                 sessoes.map((sessao) => (
                                                     <tr key={sessao.id}>
                                                         <td>{sessao.id}</td>
-                                                        <td>{sessao.filme}</td>
-                                                        <td>{sessao.sala}</td>
+                                                        <td>{sessao.filme?.titulo}</td>
+                                                        <td>{sessao.sala?.nomeSala}</td>
                                                         <td>{sessao.dataHora}</td>
                                                         <td>{sessao.valor}</td>
                                                         <td>{sessao.idioma}</td>
