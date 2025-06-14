@@ -2,14 +2,22 @@ import { useEffect, useState } from "react";
 import Card from "../../../components/cards/card";
 import Menu from "../../../components/menus/menu";
 import CardSessao from "../components/cardSessao";
+import api from "../../../service/api";
 
 export default function SessaoDisp(){
 
     const [sessoes, setSessoes] = useState([]);
 
+    async function getSessoesDispo() {
+        const response = await api.get("/sessoes");
+        setSessoes(response.data);
+    }
+    console.log("Sessoes:", sessoes);
+
     useEffect(() => {
-        const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
-        setSessoes(sessoesStorage);
+        // const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
+        // setSessoes(sessoesStorage);
+        getSessoesDispo();
     }, []);
 
     return(
@@ -47,9 +55,9 @@ export default function SessaoDisp(){
                             sessoes.map((sessao) => (
                                 <CardSessao
                                     key={sessao.id}
-                                    filme={sessao.filme}
-                                    sala={sessao.sala}
-                                    dataHora={sessao.dataHora}
+                                    filme={sessao.filme?.titulo || 'Sem título'}
+                                    sala={sessao.sala?.nomeSala || 'Sem sala'}
+                                    dataHora={new Date(sessao.dataHora).toLocaleString()}
                                     valor={sessao.valor}
                                 />
                             ))
