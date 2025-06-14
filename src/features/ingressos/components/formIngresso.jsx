@@ -2,18 +2,32 @@ import { useEffect, useState } from "react";
 import InputForm from "../../../components/inputs/input";
 import InputSelect from "../../../components/inputs/inputSelect";
 import ModalFilme from "../../filme/components/modalFilme";
+import api from "../../../service/api";
 
 export default function FormIngresso(){
 
     const [sessoes, setSessoes] = useState([]);
     
-        useEffect(() => {
-            const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
-            setSessoes(sessoesStorage);
-        }, []);
+        // useEffect(() => {
+        //     const sessoesStorage = JSON.parse(localStorage.getItem("sessoes")) || [];
+        //     setSessoes(sessoesStorage);
+        // }, []);
     
-    const handleSave = () => {
-        const sessao = document.getElementById("inputSessao").value;
+    useEffect(() => {
+        async function fecthData() {
+            try {
+                const sessoesResponse = await api.get("/sessoes");
+                setSessoes(sessoesResponse.data);
+            } catch (error) {
+                console.error("Erro ao buscar sessões:", error);
+            }
+        }
+        fecthData();
+    }, []);
+
+    const handleSave = async () => {
+       // const sessao = document.getElementById("inputSessao").value;
+        const sessaoId = document.getElementById("inputSessao").value;
         const cliente = document.getElementById("inputCliente").value;
         const cpf = document.getElementById("inputCPF").value;
         const assento = document.getElementById("inputAssesnto").value;
@@ -21,18 +35,26 @@ export default function FormIngresso(){
         
         const ingressos = JSON.parse(localStorage.getItem("ingressos")) || [];
 
-        const novaIngresso = {
-            id: ingressos.length + 1,
-            sessao,
+        // const novaIngresso = {
+        //     id: ingressos.length + 1,
+        //     sessao,
+        //     cliente,
+        //     cpf,
+        //     assento,
+        //     pagamento
+        // };
+
+        const response = await api.post("/ingressos", {
+            sessaoId: Number(sessaoId),
             cliente,
             cpf,
             assento,
             pagamento
-        };
+        });
 
-        ingressos.push(novaIngresso);
+        // ingressos.push(novaIngresso);
 
-        localStorage.setItem("ingressos", JSON.stringify(ingressos));
+        // localStorage.setItem("ingressos", JSON.stringify(ingressos));
 
         // Limpar campos
         document.getElementById("inputSessao").value = "";
@@ -58,8 +80,8 @@ export default function FormIngresso(){
                         //     {value: "Meu Malvado Favorito", label: "Meu Malvado Favorito"},
                         // ]}
                         options={sessoes.map(s => ({
-                            value: `${s.filme} - ${s.sala} - ${s.dataHora}`,
-                            label: `${s.filme} - ${s.sala} - ${s.dataHora}`
+                            value: s.id,
+                            label: `${s.filme.titulo} - ${s.sala.nomeSala} - ${s.dataHora}`
                         }))}
                     />
                 </div>

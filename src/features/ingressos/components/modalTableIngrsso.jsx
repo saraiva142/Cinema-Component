@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import api from "../../../service/api";
 
 export default function ModalTableIngresso({
     id = 'modalTableIngresso',
@@ -9,9 +10,15 @@ export default function ModalTableIngresso({
 }) {
     const [ingressos, setIngressos] = useState([]);
 
+    async function getIngressos() {
+        const response = await api.get("/ingressos");
+        setIngressos(response.data);
+    }
+    console.log("Ingressos:", ingressos);
     useEffect(() => {
-        const ingressosStorage = JSON.parse(localStorage.getItem("ingressos")) || [];
-        setIngressos(ingressosStorage);
+        // const ingressosStorage = JSON.parse(localStorage.getItem("ingressos")) || [];
+        // setIngressos(ingressosStorage);
+        getIngressos();
     }, []);
 
     const atualizarIngressos = () => {
@@ -27,7 +34,7 @@ export default function ModalTableIngresso({
                     className="btn btn-dark"
                     data-bs-toggle="modal"
                     data-bs-target={`#${id}`}
-                    onClick={atualizarIngressos}
+                    //onClick={atualizarIngressos}
                 >
                     {labelBotton}
                 </button>
@@ -70,21 +77,25 @@ export default function ModalTableIngresso({
                                         <tbody>
                                             {ingressos.length > 0 ? (
                                                 ingressos.map((ingresso) => (
-                                                    <tr key={ingresso.id}>
-                                                        <td>{ingresso.id}</td>
-                                                        <td>{ingresso.sessao}</td>
-                                                        <td>{ingresso.cliente}</td>
-                                                        <td>{ingresso.cpf}</td>
-                                                        <td>{ingresso.assento}</td>
-                                                        <td>{ingresso.pagamento}</td>
-                                                    </tr>
+                                                <tr key={ingresso.id}>
+                                                    <td>{ingresso.id}</td>
+                                                    <td>
+                                                    {ingresso.sessao
+                                                        ? `${ingresso.sessao.filme?.titulo || ''} - ${ingresso.sessao.sala?.nomeSala || ''} - ${ingresso.sessao.dataHora ? new Date(ingresso.sessao.dataHora).toLocaleString() : ''}`
+                                                        : ''}
+                                                    </td>
+                                                    <td>{ingresso.cliente}</td>
+                                                    <td>{ingresso.cpf}</td>
+                                                    <td>{ingresso.assento}</td>
+                                                    <td>{ingresso.pagamento}</td>
+                                                </tr>
                                                 ))
                                             ) : (
                                                 <tr>
-                                                    <td colSpan="6">Nenhum ingresso cadastrado.</td>
+                                                <td colSpan="6">Nenhum ingresso cadastrado.</td>
                                                 </tr>
                                             )}
-                                        </tbody>
+                                            </tbody>
                                     </table>
                                 </div>
                             </div>
